@@ -40,18 +40,27 @@ export class Game{
     private loadCompleted(){
         // Add background to stage
         this.background = new PIXI.Sprite(this.loader.resources["backGround"].texture!);
-        this.background.scale.set(0.62);
+        this.background.scale.set(1);
         this.pixi.stage.addChild(this.background);
         
         this.pixi.ticker.add((delta) => this.update(5));
+
+        // Add 'coin'
+        let coin = new PIXI.Sprite(this.loader.resources["item"].texture!);
+        coin.scale.set(0.3);
+        coin.x = 60;
+        coin.y = 15;
+        this.pixi.stage.addChild(coin);
+
+        coin.interactive = true; 
+        coin.buttonMode = true;
+        coin.on('pointerdown', () => this.onClick());
     }
 
+    // Add text on click
     onClick() {
-        let item1 = new PIXI.Sprite(this.loader.resources['item'].texture!);
-        item1.scale.set(0.7);
-        item1.x = 45;
-        item1.y = 110;
-        this.pixi.stage.addChild(item1);
+        let text = new PIXI.Text('Dit is een afbeelding',{fontFamily : 'Arial', fontSize: 24, fill : 0xff1010, align : 'center'});
+        this.pixi.stage.addChild(text);
     }
 
     // Update function
